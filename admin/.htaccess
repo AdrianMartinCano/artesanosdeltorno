@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# 1. Servir archivos estáticos existentes directamente
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# 2. Rutas /api/* → PHP router
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^ api/index.php [QSA,L]
+
+# 3. Todo lo demás → SPA del admin
+RewriteRule ^ index.html [L]

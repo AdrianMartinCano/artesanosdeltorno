@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>AdT — Tarjetas de Visita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --color-oak:         #C8A97E;
+      --color-walnut:      #7B5B3A;
+      --color-dark-walnut: #4A3221;
+      --color-birch:       #F5EFE6;
+      --color-cream:       #FAF7F2;
+      --color-olive:       #6B7B5E;
+      --color-text:        #2C1F12;
+      --color-text-muted:  #7A6652;
+      --color-border:      #E2D5C4;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lato', sans-serif;
+
+      /* Tarjeta estándar: 85 × 55 mm → 321 × 208 px a 96 dpi
+         Para impresión usamos mm directamente */
+      --card-w: 85mm;
+      --card-h: 55mm;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: #DEDBD6;
+      color: var(--color-text);
+      min-height: 100vh;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Editor UI ── */
+
+    .ui-header {
+      max-width: 960px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .ui-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--color-dark-walnut);
+      line-height: 1.2;
+    }
+
+    .ui-header p {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+      letter-spacing: .3px;
+    }
+
+    .ui-fields {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .ui-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ui-field label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .ui-field input {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-dark-walnut);
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 9px 14px;
+      outline: none;
+      width: 240px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .ui-field input:focus {
+      border-color: var(--color-walnut);
+      box-shadow: 0 0 0 3px rgba(123,91,58,.12);
+    }
+
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--color-dark-walnut);
+      color: var(--color-cream);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      white-space: nowrap;
+    }
+
+    .btn-print:hover {
+      background: var(--color-walnut);
+      transform: translateY(-1px);
+    }
+
+    /* ── Cards container ── */
+
+    .cards-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .pair-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 16px;
+    }
+
+    .pair {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    /* ── Card base ── */
+
+    .card {
+      width: var(--card-w);
+      height: var(--card-h);
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
+      flex-shrink: 0;
+
+      /* Print shadow replaced by border */
+      box-shadow:
+        0 2px 8px rgba(0,0,0,.12),
+        0 12px 32px rgba(0,0,0,.1);
+    }
+
+    /* ── ANVERSO ── */
+
+    .card--front {
+      background: var(--color-dark-walnut);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6.5mm 7mm;
+    }
+
+    /* Veta de madera */
+    .card--front::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          88deg,
+          transparent 0, transparent 9px,
+          rgba(200,169,126,.05) 9px, rgba(200,169,126,.05) 10px
+        ),
+        repeating-linear-gradient(
+          92deg,
+          transparent 0, transparent 16px,
+          rgba(120,80,40,.04) 16px, rgba(120,80,40,.04) 17px
+        );
+      pointer-events: none;
+    }
+
+    /* Acento dorado lateral */
+    .card--front::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1.2mm;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--color-oak), rgba(200,169,126,.3));
+    }
+
+    .card-front__top {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-logo-mark {
+      width: 7mm;
+      height: 7mm;
+      border-radius: 50%;
+      background: var(--color-walnut);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-logo-mark svg {
+      width: 4mm;
+      height: 4mm;
+    }
+
+    .card-logo-text {
+      font-family: var(--font-display);
+      font-size: 4.2mm;
+      font-weight: 700;
+      color: var(--color-cream);
+      line-height: 1;
+    }
+
+    .card-logo-text span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 2mm;
+      font-weight: 400;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: rgba(245,239,230,.45);
+      margin-top: 1mm;
+    }
+
+    .card-front__center {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-front__name {
+      font-family: var(--font-display);
+      font-size: 5.8mm;
+      font-weight: 600;
+      color: var(--color-cream);
+      line-height: 1.1;
+      margin-bottom: 1.5mm;
+    }
+
+    .card-front__name em {
+      font-style: italic;
+      color: var(--color-oak);
+    }
+
+    .card-front__role {
+      font-size: 2.2mm;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--color-olive-light, #8E9E80);
+    }
+
+    .card-front__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      border-top: .3mm solid rgba(200,169,126,.2);
+      padding-top: 3mm;
+    }
+
+    .card-front__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 1mm;
+    }
+
+    .card-front__contact-line {
+      font-size: 2.1mm;
+      color: rgba(245,239,230,.55);
+      letter-spacing: .3px;
+    }
+
+    .card-front__contact-line strong {
+      color: var(--color-oak);
+      font-weight: 700;
+    }
+
+    .card-front__ornament {
+      font-size: 5mm;
+      opacity: .18;
+      line-height: 1;
+    }
+
+    /* ── REVERSO ── */
+
+    .card--back {
+      background: var(--color-cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3mm;
+      padding: 6mm;
+    }
+
+    .card--back::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          88deg,
+          transparent 0, transparent 18px,
+          rgba(160,110,65,.04) 18px, rgba(160,110,65,.04) 20px
+        ),
+        repeating-linear-gradient(
+          92deg,
+          transparent 0, transparent 30px,
+          rgba(120,80,40,.03) 30px, rgba(120,80,40,.03) 32px
+        );
+      pointer-events: none;
+    }
+
+    /* Marco decorativo */
+    .card--back::after {
+      content: '';
+      position: absolute;
+      inset: 2mm;
+      border: .3mm solid var(--color-border);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .card-back__logo {
+      display: flex;
+      align-items: center;
+      gap: 2.5mm;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-back__logo .card-logo-mark {
+      background: var(--color-dark-walnut);
+    }
+
+    .card-back__logo .card-logo-text {
+      color: var(--color-dark-walnut);
+    }
+
+    .card-back__logo .card-logo-text span {
+      color: var(--color-text-muted);
+    }
+
+    .card-back__divider {
+      width: 12mm;
+      height: .3mm;
+      background: linear-gradient(90deg, transparent, var(--color-oak), transparent);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-back__tagline {
+      font-family: var(--font-display);
+      font-size: 2.6mm;
+      font-style: italic;
+      color: var(--color-text-muted);
+      text-align: center;
+      line-height: 1.4;
+      max-width: 60mm;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-back__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2mm;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      margin-top: 1mm;
+    }
+
+    .card-back__contact-line {
+      font-size: 2mm;
+      color: var(--color-text-muted);
+      letter-spacing: .4px;
+    }
+
+    .card-back__contact-line strong {
+      color: var(--color-dark-walnut);
+      font-weight: 700;
+    }
+
+    .card-back__year {
+      position: absolute;
+      bottom: 4.5mm;
+      right: 5mm;
+      font-size: 1.8mm;
+      color: var(--color-border);
+      letter-spacing: 1px;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    /* ── Bleed note ── */
+
+    .bleed-note {
+      max-width: 960px;
+      margin: 48px auto 0;
+      padding: 16px 20px;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    .bleed-note strong {
+      color: var(--color-dark-walnut);
+    }
+
+    /* ── PRINT ── */
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .ui-header,
+      .pair-label,
+      .bleed-note,
+      .btn-print {
+        display: none !important;
+      }
+
+      .cards-wrap {
+        max-width: 100%;
+        gap: 8mm;
+      }
+
+      .pair {
+        gap: 6mm;
+        page-break-inside: avoid;
+      }
+
+      .card {
+        box-shadow: none;
+        /* sangrado mínimo: el impresor añade 3mm extra */
+        outline: .1mm solid #ccc; /* guía de corte */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UI -->
+  <div class="ui-header">
+    <div>
+      <h1>Tarjetas de visita — AdT</h1>
+      <p>Formato estándar 85 × 55 mm · Edita los datos y pulsa imprimir</p>
+    </div>
+    <div class="ui-fields">
+      <div class="ui-field">
+        <label for="input-web">Sitio web</label>
+        <input type="text" id="input-web" value="artesanosdeltorno.es" placeholder="artesanosdeltorno.es" />
+      </div>
+      <div class="ui-field">
+        <label for="input-email">Correo electrónico</label>
+        <input type="email" id="input-email" value="info@artesanosdeltorno.es" placeholder="info@artesanosdeltorno.es" />
+      </div>
+      <button class="btn-print" onclick="window.print()">
+        ⎙ Imprimir
+      </button>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards-wrap">
+
+    <!-- Par 1: Anverso + reverso -->
+    <div>
+      <p class="pair-label">Anverso y reverso</p>
+      <div class="pair">
+
+        <!-- ANVERSO -->
+        <div class="card card--front">
+          <div class="card-front__top">
+            <div class="card-logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 3v2"/><path d="M12 19v2"/>
+                <path d="M3 12h2"/><path d="M19 12h2"/>
+                <path d="M7 7l1.4 1.4"/><path d="M15.6 15.6L17 17"/>
+                <path d="M17 7l-1.4 1.4"/><path d="M8.4 15.6L7 17"/>
+              </svg>
+            </div>
+            <div class="card-logo-text">
+              AdT
+              <span>Artesanos del Torno</span>
+            </div>
+          </div>
+
+          <div class="card-front__center">
+            <div class="card-front__name">
+              <em>Artesanos</em>
+            </div>
+            <div class="card-front__role">
+              del Torno
+            </div>
+          </div>
+
+          <div class="card-front__bottom">
+            <div class="card-front__contact">
+              <div class="card-front__contact-line">
+                <strong>✦</strong> <span class="js-web"></span>
+              </div>
+              <div class="card-front__contact-line">
+                <strong>✉</strong> <span class="js-email"></span>
+              </div>
+            </div>
+            <div class="card-front__ornament">🪵</div>
+          </div>
+        </div>
+
+        <!-- REVERSO -->
+        <div class="card card--back">
+          <div class="card-back__logo">
+            <div class="card-logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 3v2"/><path d="M12 19v2"/>
+                <path d="M3 12h2"/><path d="M19 12h2"/>
+                <path d="M7 7l1.4 1.4"/><path d="M15.6 15.6L17 17"/>
+                <path d="M17 7l-1.4 1.4"/><path d="M8.4 15.6L7 17"/>
+              </svg>
+            </div>
+            <div class="card-logo-text">
+              AdT
+              <span>Artesanos del Torno</span>
+            </div>
+          </div>
+
+          <div class="card-back__divider"></div>
+
+          <div class="card-back__tagline">
+            Preservando el arte del torneado artesanal
+          </div>
+
+          <div class="card-back__contact">
+            <div class="card-back__contact-line"><strong class="js-web"></strong></div>
+            <div class="card-back__contact-line"><span class="js-email"></span></div>
+          </div>
+
+          <div class="card-back__year">EST. 2003</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Par 2: repetición para imprimir hoja completa -->
+    <div>
+      <p class="pair-label">Segunda copia (hoja completa)</p>
+      <div class="pair">
+
+        <div class="card card--front">
+          <div class="card-front__top">
+            <div class="card-logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+                <path d="M12 3v2"/><path d="M12 19v2"/>
+                <path d="M3 12h2"/><path d="M19 12h2"/>
+                <path d="M7 7l1.4 1.4"/><path d="M15.6 15.6L17 17"/>
+                <path d="M17 7l-1.4 1.4"/><path d="M8.4 15.6L7 17"/>
+              </svg>
+            </div>
+            <div class="card-logo-text">AdT<span>Artesanos del Torno</span></div>
+          </div>
+          <div class="card-front__center">
+            <div class="card-front__name"><em>Artesanos</em></div>
+            <div class="card-front__role">del Torno</div>
+          </div>
+          <div class="card-front__bottom">
+            <div class="card-front__contact">
+              <div class="card-front__contact-line"><strong>✦</strong> <span class="js-web"></span></div>
+              <div class="card-front__contact-line"><strong>✉</strong> <span class="js-email"></span></div>
+            </div>
+            <div class="card-front__ornament">🪵</div>
+          </div>
+        </div>
+
+        <div class="card card--back">
+          <div class="card-back__logo">
+            <div class="card-logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+                <path d="M12 3v2"/><path d="M12 19v2"/>
+                <path d="M3 12h2"/><path d="M19 12h2"/>
+                <path d="M7 7l1.4 1.4"/><path d="M15.6 15.6L17 17"/>
+                <path d="M17 7l-1.4 1.4"/><path d="M8.4 15.6L7 17"/>
+              </svg>
+            </div>
+            <div class="card-logo-text">AdT<span>Artesanos del Torno</span></div>
+          </div>
+          <div class="card-back__divider"></div>
+          <div class="card-back__tagline">Preservando el arte del torneado artesanal</div>
+          <div class="card-back__contact">
+            <div class="card-back__contact-line"><strong class="js-web"></strong></div>
+            <div class="card-back__contact-line"><span class="js-email"></span></div>
+          </div>
+          <div class="card-back__year">EST. 2003</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTA -->
+  <div class="bleed-note">
+    <strong>Para impresión profesional:</strong> exporta esta página a PDF (Guardar como PDF en el diálogo de impresión) y entrega el archivo a tu imprenta.
+    Pide sangrado de <strong>3 mm</strong> si la imprenta lo requiere — el diseño usa fondo oscuro hasta el borde para facilitar el recorte.
+    Papel recomendado: <strong>350 g/m² mate o soft-touch</strong>.
+  </div>
+
+  <script>
+    function syncFields() {
+      const web   = document.getElementById('input-web').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+
+      document.querySelectorAll('.js-web').forEach(el => el.textContent = web);
+      document.querySelectorAll('.js-email').forEach(el => el.textContent = email);
+    }
+
+    document.getElementById('input-web').addEventListener('input', syncFields);
+    document.getElementById('input-email').addEventListener('input', syncFields);
+
+    // Inicializar
+    syncFields();
+  </script>
+
+</body>
+</html>

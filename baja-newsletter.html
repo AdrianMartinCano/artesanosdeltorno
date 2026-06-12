@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baja newsletter — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; background:#faf7f2; }
+    .baja-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .baja-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    .baja-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      color: #4a3221;
+      margin-bottom: .75rem;
+    }
+    .baja-msg {
+      color: #6b4c35;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+    .baja-spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #e0d5c4;
+      border-top-color: #4a3221;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <div class="baja-page">
+    <div id="baja-loading">
+      <div class="baja-spinner"></div>
+      <p style="color:#6b4c35;font-size:.95rem">Procesando…</p>
+    </div>
+
+    <div id="baja-ok" style="display:none">
+      <div class="baja-icon">✅</div>
+      <h1 class="baja-title">Baja tramitada</h1>
+      <p class="baja-msg" id="baja-ok-msg">Te has dado de baja correctamente. No recibirás más emails de nuestra parte.</p>
+      <a href="/" class="btn btn-outline" style="display:inline-block;margin-top:.5rem">Volver al inicio</a>
+    </div>
+
+    <div id="baja-err" style="display:none">
+      <div class="baja-icon">⚠️</div>
+      <h1 class="baja-title">Enlace no válido</h1>
+      <p class="baja-msg">El enlace ha caducado o ya lo usaste anteriormente. Si sigues recibiendo emails, escríbenos a <a href="mailto:info@artesanosdeltorno.es" style="color:#4a3221">info@artesanosdeltorno.es</a>.</p>
+      <a href="/" class="btn btn-outline" style="display:inline-block;margin-top:.5rem">Volver al inicio</a>
+    </div>
+  </div>
+
+  <script>
+    (async function () {
+      const token = new URLSearchParams(location.search).get('token');
+      if (!token) { show('baja-err'); return; }
+
+      try {
+        const res  = await fetch('https://admin.artesanosdeltorno.es/api/newsletter/baja?token=' + encodeURIComponent(token));
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) {
+          document.getElementById('baja-ok-msg').textContent = data.mensaje || 'Te has dado de baja correctamente.';
+          show('baja-ok');
+        } else {
+          show('baja-err');
+        }
+      } catch {
+        show('baja-err');
+      }
+
+      function show(id) {
+        document.getElementById('baja-loading').style.display = 'none';
+        document.getElementById(id).style.display = '';
+      }
+    })();
+  </script>
+
+</body>
+</html>

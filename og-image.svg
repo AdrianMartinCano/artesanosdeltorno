@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <!-- Fondo -->
+  <rect width="1200" height="1200" fill="#2d1f14"/>
+
+  <!-- Veta de madera sutil -->
+  <g stroke="#ffffff" stroke-opacity="0.025" stroke-width="2">
+    <line x1="0" y1="150"  x2="1200" y2="143"/>
+    <line x1="0" y1="300"  x2="1200" y2="297"/>
+    <line x1="0" y1="450"  x2="1200" y2="455"/>
+    <line x1="0" y1="600"  x2="1200" y2="594"/>
+    <line x1="0" y1="750"  x2="1200" y2="753"/>
+    <line x1="0" y1="900"  x2="1200" y2="897"/>
+    <line x1="0" y1="1050" x2="1200" y2="1047"/>
+  </g>
+
+  <!-- Bordes dorados -->
+  <rect x="0"    y="0"    width="1200" height="8"    fill="#c8a97e"/>
+  <rect x="0"    y="1192" width="1200" height="8"    fill="#c8a97e"/>
+  <rect x="0"    y="0"    width="8"    height="1200" fill="#c8a97e"/>
+  <rect x="1192" y="0"    width="8"    height="1200" fill="#c8a97e"/>
+
+  <!-- Marca del torno centrada -->
+  <g transform="translate(600,430)" fill="none" stroke="#c8a97e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="150"/>
+    <circle r="67"/>
+    <path d="M0 -150v32M0 118v32M-150 0h32M118 0h32"/>
+    <path d="M-83 -83L-59 -59M59 59L83 83M83 -83L59 -59M-59 59L-83 83"/>
+  </g>
+
+  <!-- "AdT" -->
+  <text x="600" y="680"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="140" font-weight="700"
+        text-anchor="middle"
+        fill="#faf7f2" letter-spacing="-4">AdT</text>
+
+  <!-- Línea separadora -->
+  <rect x="260" y="710" width="680" height="2" fill="#c8a97e" opacity="0.45"/>
+
+  <!-- Nombre -->
+  <text x="600" y="785"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="52" font-style="italic"
+        text-anchor="middle"
+        fill="#c8a97e">Artesanos del Torno</text>
+
+  <!-- Tagline -->
+  <text x="600" y="855"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="22" letter-spacing="3"
+        text-anchor="middle"
+        fill="#faf7f2" opacity="0.5">ASOCIACIÓN NACIONAL · ESPAÑA</text>
+
+  <!-- URL -->
+  <text x="600" y="1120"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="22" letter-spacing="1"
+        text-anchor="middle"
+        fill="#c8a97e" opacity="0.55">artesanosdeltorno.es</text>
+</svg>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devoluciones y Envíos — Girando Madera</title>
+  <link rel="icon" sizes="any" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles/tienda.css"/>
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .legal-hero { background:#2d1f14; padding:5rem 2rem 3.5rem; text-align:center; color:#faf7f2; }
+    .legal-hero .label { font-size:.72rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:#c8a97e; }
+    .legal-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.6rem); margin:.5rem 0 0; }
+    .legal-content { max-width:780px; margin:0 auto; padding:4rem 1.5rem 5rem; flex:1; }
+    .legal-content h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:#2d1f14; margin:2rem 0 .75rem; }
+    .legal-content p { line-height:1.85; color:#4a3221; margin-bottom:1rem; font-size:.97rem; }
+    .legal-content ul { margin:.5rem 0 1rem 1.5rem; color:#4a3221; line-height:1.8; font-size:.97rem; }
+    .info-box { background:#f4ede6; border-radius:12px; padding:1.25rem 1.5rem; margin:1.5rem 0; }
+    .info-box strong { display:block; font-family:'Playfair Display',serif; font-size:1rem; color:#2d1f14; margin-bottom:.4rem; }
+    a[href^="mailto"] { color:#8b5e3c; }
+    .envio-tabla { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.9rem; }
+    .envio-tabla th { background:#2d1f14; color:#faf7f2; padding:.6rem .85rem; text-align:left; }
+    .envio-tabla td { padding:.6rem .85rem; border-bottom:1px solid #f0e8e0; color:#4a3221; }
+    .envio-tabla tr:last-child td { border-bottom:none; }
+  </style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="header__logo" href="index.html">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+          <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+        </svg>
+      </div>
+      <div class="logo-text">Girando Madera<span>por Manuel Mateo · AdT</span></div>
+    </a>
+    <nav class="header__nav">
+      <a href="index.html">Tienda</a>
+      <a href="https://artesanosdeltorno.es">Asociación</a>
+    </nav>
+    <a href="carrito.html" class="cart-btn">
+      🛒 Carrito
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <span class="label">Compra con tranquilidad</span>
+  <h1>Envíos y <em>Devoluciones</em></h1>
+</div>
+
+<main class="legal-content">
+
+  <div class="info-box">
+    <strong>🪵 Piezas únicas y artesanales</strong>
+    Cada obra está hecha a mano y es irrepetible. Las fotografías reflejan fielmente el producto, aunque pueden existir pequeñas variaciones propias de la artesanía.
+  </div>
+
+  <h2>Envíos</h2>
+  <p>Preparamos y enviamos los pedidos en un plazo de <strong>3 a 5 días hábiles</strong> desde la confirmación del pago. El plazo de entrega estimado una vez enviado es de 2 a 4 días hábiles según la zona.</p>
+
+  <table class="envio-tabla">
+    <thead>
+      <tr><th>Zona</th><th>Gastos de envío</th><th>Envío gratis desde</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Península</td><td>6,95 €</td><td>100 €</td></tr>
+      <tr><td>Baleares</td><td>8,95 €</td><td>100 €</td></tr>
+    </tbody>
+  </table>
+
+  <p>Recibirás un email de confirmación cuando tu pedido sea enviado. Si tienes alguna incidencia con el envío, contacta con nosotros en <a href="mailto:tienda@artesanosdeltorno.es">tienda@artesanosdeltorno.es</a>.</p>
+
+  <h2>Derecho de desistimiento</h2>
+  <p>Conforme al Real Decreto Legislativo 1/2007 (Ley General para la Defensa de los Consumidores y Usuarios), tienes derecho a desistir de tu compra en un plazo de <strong>14 días naturales</strong> desde la recepción del pedido, sin necesidad de justificación.</p>
+  <p>Para ejercer este derecho, contáctanos antes de que venza el plazo en <a href="mailto:tienda@artesanosdeltorno.es">tienda@artesanosdeltorno.es</a> indicando tu número de pedido y el motivo.</p>
+
+  <h2>Condiciones de devolución</h2>
+  <ul>
+    <li>El producto debe devolverse en su estado original, sin daños ni uso.</li>
+    <li>El embalaje debe ser adecuado para proteger la pieza durante el transporte.</li>
+    <li>Los gastos de devolución corren a cargo del comprador, salvo que el producto llegue defectuoso o dañado.</li>
+  </ul>
+
+  <h2>Reembolso</h2>
+  <p>Una vez recibida y verificada la devolución, tramitaremos el reembolso del importe pagado (incluidos los gastos de envío originales si la devolución es total) en un plazo máximo de <strong>14 días</strong> mediante el mismo método de pago utilizado en la compra.</p>
+
+  <h2>Productos defectuosos o dañados</h2>
+  <p>Si tu pedido llega dañado o con algún defecto, escríbenos a <a href="mailto:tienda@artesanosdeltorno.es">tienda@artesanosdeltorno.es</a> en las primeras 48 horas desde la recepción, adjuntando fotografías del estado del producto y el embalaje. Gestionaremos la reposición o el reembolso completo sin coste adicional para ti.</p>
+
+  <p style="margin-top:2rem;font-size:.85rem;color:#aaa">Última actualización: mayo de 2026</p>
+</main>
+
+<footer class="footer-tienda">
+  <p>© 2026 Manuel Mateo · <a href="https://artesanosdeltorno.es">Artesanos del Torno</a> &nbsp;|&nbsp; <a href="aviso-legal.html">Aviso legal</a> &nbsp;|&nbsp; <a href="privacidad.html">Privacidad</a> &nbsp;|&nbsp; <a href="devoluciones.html">Devoluciones</a> &nbsp;|&nbsp; <a href="cookies.html">Cookies</a></p>
+  <p style="font-size:.75rem;margin-top:.4rem;opacity:.6">Hosteado en <a href="https://serveralia.net" target="_blank" rel="noopener">Serveralia</a> · Gracias Drazor ♡</p>
+</footer>
+
+<script src="js/tienda-shared.js"></script>
+</body>
+</html>

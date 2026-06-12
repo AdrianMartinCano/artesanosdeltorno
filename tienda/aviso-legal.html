@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aviso Legal — Girando Madera</title>
+  <link rel="icon" sizes="any" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles/tienda.css"/>
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .legal-hero { background:#2d1f14; padding:5rem 2rem 3.5rem; text-align:center; color:#faf7f2; }
+    .legal-hero .label { font-size:.72rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:#c8a97e; }
+    .legal-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.6rem); margin:.5rem 0 0; }
+    .legal-content { max-width:780px; margin:0 auto; padding:4rem 1.5rem 5rem; flex:1; }
+    .legal-content h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:#2d1f14; margin:2rem 0 .75rem; }
+    .legal-content p { line-height:1.85; color:#4a3221; margin-bottom:1rem; font-size:.97rem; }
+    .legal-content ul { margin:.5rem 0 1rem 1.5rem; color:#4a3221; line-height:1.8; font-size:.97rem; }
+    a[href^="mailto"] { color:#8b5e3c; }
+  </style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="header__logo" href="index.html">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+          <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+        </svg>
+      </div>
+      <div class="logo-text">Girando Madera<span>por Manuel Mateo · AdT</span></div>
+    </a>
+    <nav class="header__nav">
+      <a href="index.html">Tienda</a>
+      <a href="https://artesanosdeltorno.es">Asociación</a>
+    </nav>
+    <a href="carrito.html" class="cart-btn">
+      🛒 Carrito
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <span class="label">Información legal</span>
+  <h1>Aviso <em>Legal</em></h1>
+</div>
+
+<main class="legal-content">
+  <h2>1. Titular</h2>
+  <p>La presente tienda online <strong>Girando Madera</strong> es gestionada por <strong>Manuel Mateo</strong>, artesano asociado a la Asociación Artesanos del Torno, con domicilio en España.</p>
+  <p><strong>Contacto:</strong> <a href="mailto:tienda@artesanosdeltorno.es">tienda@artesanosdeltorno.es</a></p>
+
+  <h2>2. Objeto</h2>
+  <p>Este sitio web tiene por objeto la venta de piezas de torneado artesanal elaboradas a mano por Manuel Mateo. Cada pieza es única y artesanal, por lo que puede presentar variaciones respecto a las fotografías.</p>
+
+  <h2>3. Propiedad intelectual</h2>
+  <p>Todas las fotografías, textos y contenidos de esta tienda son propiedad de Manuel Mateo y están protegidos por la legislación sobre propiedad intelectual. Queda prohibida su reproducción sin autorización expresa.</p>
+
+  <h2>4. Precios e IVA</h2>
+  <p>Los precios mostrados incluyen el IVA aplicable según la legislación española vigente. Los gastos de envío se calculan y muestran antes de confirmar el pedido.</p>
+
+  <h2>5. Responsabilidad</h2>
+  <p>Manuel Mateo no se hace responsable de los daños derivados del uso incorrecto de los productos adquiridos, ni de los retrasos en la entrega imputables al transportista.</p>
+
+  <h2>6. Legislación aplicable</h2>
+  <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del comprador, conforme a la normativa de consumidores y usuarios.</p>
+
+  <p style="margin-top:2rem;font-size:.85rem;color:#aaa">Última actualización: mayo de 2026</p>
+</main>
+
+<footer class="footer-tienda">
+  <p>© 2026 Manuel Mateo · <a href="https://artesanosdeltorno.es">Artesanos del Torno</a> &nbsp;|&nbsp; <a href="aviso-legal.html">Aviso legal</a> &nbsp;|&nbsp; <a href="privacidad.html">Privacidad</a> &nbsp;|&nbsp; <a href="devoluciones.html">Devoluciones</a> &nbsp;|&nbsp; <a href="cookies.html">Cookies</a></p>
+  <p style="font-size:.75rem;margin-top:.4rem;opacity:.6">Hosteado en <a href="https://serveralia.net" target="_blank" rel="noopener">Serveralia</a> · Gracias Drazor ♡</p>
+</footer>
+
+<script src="js/tienda-shared.js"></script>
+</body>
+</html>

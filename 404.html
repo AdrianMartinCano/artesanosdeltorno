@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no encontrada — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .error-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #faf7f2;
+    }
+    .error-lathe {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .error-404 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 20vw, 11rem);
+      font-weight: 700;
+      color: #f0e8e0;
+      line-height: 1;
+      letter-spacing: -4px;
+      position: relative;
+      z-index: 0;
+    }
+    .error-icon {
+      font-size: 4rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      animation: spin-slow 8s linear infinite;
+    }
+    @keyframes spin-slow {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .error-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: #c8a97e;
+      margin-bottom: 1rem;
+    }
+    .error-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: #2d1f14;
+      margin-bottom: 1rem;
+    }
+    .error-text {
+      font-size: .95rem;
+      color: #7a6652;
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 2.5rem;
+    }
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .error-link {
+      font-size: .82rem;
+      color: #8b5e3c;
+      text-decoration: underline;
+      padding: .5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <main class="error-page">
+    <div class="error-lathe">
+      <div class="error-404">404</div>
+      <div class="error-icon">⚙️</div>
+    </div>
+    <span class="error-label">El torno no encuentra esta pieza</span>
+    <h1 class="error-title">Esta viruta se ha perdido<br>en el <em>taller</em></h1>
+    <p class="error-text">
+      La página que buscas no existe o ha sido movida. Puede que el enlace esté roto o que la pieza ya no esté en el banco de trabajo.
+    </p>
+    <div class="error-actions">
+      <a href="index.html" class="btn btn-primary">Volver al taller</a>
+      <a href="index.html#contacto" class="error-link">Contactar con nosotros</a>
+    </div>
+  </main>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno. &nbsp;|&nbsp; <a href="aviso-legal.html" style="color:inherit;">Aviso legal</a> &nbsp;|&nbsp; <a href="privacidad.html" style="color:inherit;">Privacidad</a></p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

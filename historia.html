@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historia — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="La historia de Artesanos del Torno, asociación nacional de torneado artesanal fundada en 2024.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://artesanosdeltorno.es/historia.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/inner.css" />
+  <style>
+    .inner-content p { font-size: 1.05rem; }
+    .inner-content h2 { font-size:1.5rem; margin:2.5rem 0 1rem; }
+    .timeline { border-left: 3px solid #c8a97e; padding-left: 2rem; margin: 2rem 0; }
+    .timeline-item { position:relative; margin-bottom:2rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: .35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #8b5e3c;
+      border: 2px solid #faf7f2;
+      box-shadow: 0 0 0 2px #c8a97e;
+    }
+    .timeline-year { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#8b5e3c; margin-bottom:.3rem; }
+    .timeline-item h3 { font-size:1rem; font-weight:700; color:#2d1f14; margin-bottom:.4rem; }
+    .timeline-item p { margin:0; font-size:.95rem; }
+    .cta-box {
+      background: #f4ede6;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .cta-box p { color: #6b4c35; margin-bottom:1rem; }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <div class="inner-hero">
+    <span class="section-label">Nuestra historia</span>
+    <h1 class="section-title">De una pasión compartida<br>a una <em>comunidad nacional</em></h1>
+  </div>
+
+  <main class="inner-content">
+
+    <p>Artesanos del Torno nació de una conversación entre amigos en un taller de madera. Lo que comenzó como un intercambio informal de técnicas y herramientas entre torneros aficionados y profesionales se convirtió, en 2026, en la primera asociación nacional dedicada exclusivamente al arte del torneado artesanal en España.</p>
+
+    <p>El torneado de madera es uno de los oficios más antiguos de la humanidad. Durante siglos ha dado forma a cuencos, ejes, columnas y piezas de una belleza única que solo la mano del artesano —guiada por el ojo, la experiencia y el amor al material— puede crear. Sin embargo, en las últimas décadas, este oficio ha ido perdiendo visibilidad frente a la producción industrial.</p>
+
+    <p>Ante esta realidad, un grupo de artesanos encabezado por <strong>Manolo, Jesús y Julián</strong> decidió actuar: crear un espacio donde los torneros de toda España pudieran encontrarse, aprender juntos, dar visibilidad a su trabajo y transmitir el oficio a las nuevas generaciones.</p>
+
+    <h2>Una historia en construcción</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <h3>La semilla de una idea</h3>
+        <p>En un taller de un pequeño pueblo de Toledo, durante una larga tarde de virutas y café, Manuel Mateo y varios amigos torneros empiezan a hablar de algo que les lleva tiempo rondando la cabeza: la falta de un espacio común para los artesanos del torno en España. La producción industrial ha desplazado al artesano de madera del imaginario colectivo, y nadie parece hacer nada al respecto. Aquella conversación marca el inicio de todo.</p>
+        <p style="margin-top:.6rem;">A lo largo del año, la idea madura en conversaciones por teléfono, mensajes y visitas entre talleres. Se empieza a trazar qué forma podría tener una asociación nacional: cuáles serían sus objetivos, quién podría liderar cada área y, sobre todo, qué necesitan realmente los artesanos del torno para crecer y hacerse visibles.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <h3>Los primeros encuentros</h3>
+        <p>La idea deja de ser solo palabras. A principios de año se organiza el primer encuentro informal entre torneros llegados desde Guadalajara, Madrid y León, de nuevo en Toledo. La sesión dura horas. Se comparten técnicas, se debaten necesidades y, sobre todo, se confirma que la ilusión es compartida.</p>
+        <p style="margin-top:.6rem;">Durante los meses siguientes se celebran varios encuentros más, algunos presenciales y otros por videoconferencia. Se redacta un primer borrador de lo que serían los objetivos fundacionales y se sondea a artesanos de todo el país para conocer su disposición a unirse al proyecto. La respuesta es mejor de lo esperado: torneros de más de doce provincias muestran su interés.</p>
+        <p style="margin-top:.6rem;">A finales de 2024 ya existe un grupo de trabajo consolidado y una propuesta de estatutos sobre la mesa. El paso formal es cuestión de tiempo.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2025</div>
+        <h3>Preparación y estructura</h3>
+        <p>Con los cimientos ya puestos, el equipo promotor trabaja durante todo el año en la arquitectura interna de la asociación. Se define el modelo de gobernanza, se redactan y revisan los estatutos en varias rondas de consulta con los artesanos implicados, y se busca asesoramiento legal para garantizar que la constitución formal se realice con todas las garantías.</p>
+        <p style="margin-top:.6rem;">Paralelamente, se trabaja en construir la comunidad antes incluso de existir oficialmente: se crea un grupo de comunicación, se comparten recursos formativos y se organizan encuentros técnicos donde los artesanos pueden intercambiar conocimiento sobre maderas, herramientas y acabados. La identidad visual de AdT empieza a tomar forma.</p>
+        <p style="margin-top:.6rem;">Al cierre del año, Artesanos del Torno cuenta ya con un núcleo de más de veinte personas comprometidas y listas para dar el salto definitivo.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <h3>Nace Artesanos del Torno</h3>
+        <p>A principios de 2026, Artesanos del Torno queda registrada oficialmente como asociación sin ánimo de lucro ante el Registro Nacional de Asociaciones. Los socios fundadores firman el acta constitucional en un acto sencillo pero emocionante, celebrado en el mismo taller donde todo empezó tres años antes.</p>
+        <p style="margin-top:.6rem;">Se constituye la primera junta directiva, con Manuel Mateo como presidente, Julián Pérez como tesorero y Jesús López como vicepresidente. Semanas después se lanza esta web, primer escaparate digital de la asociación y herramienta de comunicación de la comunidad.</p>
+        <p style="margin-top:.6rem;">La respuesta del sector es inmediata: en los primeros meses, torneros de toda la geografía española solicitan su incorporación. AdT ya no es solo una idea; es una realidad que el torneado artesanal en España estaba esperando.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">El futuro</div>
+        <h3>Seguimos creciendo</h3>
+        <p>Nuevos eventos, nuevos artesanos, nuevas provincias. La historia de Artesanos del Torno está siendo escrita cada día por cada uno de sus socios.</p>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p>¿Compartes nuestra pasión por el torneado artesanal? Únete a la comunidad.</p>
+      <a href="index.html#contacto" class="btn btn-primary">Contactar con nosotros</a>
+    </div>
+
+  </main>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno.</p>
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;margin-top:.25rem;">Alojado en <a href="https://serveralia.net" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">serveralia.net</a> — Gracias Drazor ❤</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estatutos — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="Estatutos de la Asociación Artesanos del Torno.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://artesanosdeltorno.es/estatutos.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/inner.css" />
+  <style>
+    .estatutos-intro {
+      background: #f4ede6;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      font-size: .9rem;
+      color: #6b4c35;
+      line-height: 1.7;
+    }
+    .capitulo {
+      margin: 2.5rem 0 1rem;
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #8b5e3c;
+    }
+    .articulo {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid #f0e8e0;
+    }
+    .articulo:last-child { border-bottom: none; }
+    .articulo h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: #2d1f14;
+      margin-bottom: .6rem;
+    }
+    .articulo p {
+      font-size: .95rem;
+      line-height: 1.8;
+      color: #4a3221;
+      margin-bottom: .5rem;
+    }
+    .articulo ul {
+      margin: .5rem 0 .5rem 1.5rem;
+      font-size: .95rem;
+      line-height: 1.8;
+      color: #4a3221;
+    }
+    .articulo ul li { margin-bottom: .25rem; }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <div class="inner-hero">
+    <span class="section-label">Marco legal</span>
+    <h1 class="section-title">Estatutos de la<br><em>Asociación</em></h1>
+  </div>
+
+  <main class="inner-content">
+
+    <div class="estatutos-intro">
+      Estatutos de la Asociación <strong>Artesanos del Torno</strong>, aprobados en asamblea constituyente celebrada en 2024. Documento sujeto a actualización conforme a la legislación vigente en materia de asociaciones (Ley Orgánica 1/2002, de 22 de marzo, reguladora del Derecho de Asociación).
+    </div>
+
+    <p class="capitulo">Capítulo I — Disposiciones generales</p>
+
+    <div class="articulo">
+      <h3>Artículo 1. Denominación y naturaleza</h3>
+      <p>Con la denominación <strong>Artesanos del Torno</strong> se constituye una asociación sin ánimo de lucro, al amparo de lo establecido en la Ley Orgánica 1/2002, de 22 de marzo, reguladora del Derecho de Asociación, y demás disposiciones vigentes.</p>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 2. Fines y actividades</h3>
+      <p>La asociación tiene como fines:</p>
+      <ul>
+        <li>Preservar y promover el arte del torneado artesanal en España.</li>
+        <li>Fomentar el intercambio de conocimientos y técnicas entre artesanos.</li>
+        <li>Organizar encuentros, ferias, cursos y talleres de formación.</li>
+        <li>Dar visibilidad al torneado de madera como patrimonio cultural.</li>
+        <li>Representar los intereses de los artesanos del torno ante instituciones públicas y privadas.</li>
+      </ul>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 3. Domicilio social</h3>
+      <p>El domicilio social de la asociación se establece en España. Podrá ser modificado por acuerdo de la Junta Directiva, dando comunicación a los socios y al Registro de Asociaciones correspondiente.</p>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 4. Ámbito territorial</h3>
+      <p>La asociación desarrolla principalmente sus actividades en el ámbito nacional, sin perjuicio de las relaciones que pueda establecer con entidades similares en el ámbito internacional.</p>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 5. Duración</h3>
+      <p>La asociación se constituye por tiempo indefinido.</p>
+    </div>
+
+    <p class="capitulo">Capítulo II — Socios</p>
+
+    <div class="articulo">
+      <h3>Artículo 6. Clases de socios</h3>
+      <p>Podrán formar parte de la asociación:</p>
+      <ul>
+        <li><strong>Socios ordinarios:</strong> personas físicas mayores de edad que practiquen o tengan interés en el torneado artesanal.</li>
+        <li><strong>Socios honorarios:</strong> personas o entidades que hayan prestado servicios relevantes a la asociación o a la artesanía del torno.</li>
+      </ul>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 7. Derechos de los socios</h3>
+      <ul>
+        <li>Participar en las actividades de la asociación y en los órganos de gobierno.</li>
+        <li>Ser informados sobre los acuerdos adoptados por los órganos de la asociación.</li>
+        <li>Hacer uso de los servicios comunes.</li>
+        <li>Exponer sus quejas y sugerencias a la Junta Directiva.</li>
+      </ul>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 8. Deberes de los socios</h3>
+      <ul>
+        <li>Compartir los fines de la asociación y colaborar en su consecución.</li>
+        <li>Abonar las cuotas y derramas que se establezcan.</li>
+        <li>Acatar y cumplir los acuerdos válidos de los órganos de la asociación.</li>
+        <li>Respetar el reglamento de régimen interno y los presentes estatutos.</li>
+      </ul>
+    </div>
+
+    <p class="capitulo">Capítulo III — Órganos de gobierno</p>
+
+    <div class="articulo">
+      <h3>Artículo 9. Órganos de gobierno</h3>
+      <p>Los órganos de gobierno de la asociación son:</p>
+      <ul>
+        <li>La Asamblea General</li>
+        <li>La Junta Directiva</li>
+      </ul>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 10. La Asamblea General</h3>
+      <p>La Asamblea General es el órgano supremo de la asociación. Estará integrada por todos los socios y se reunirá en sesión ordinaria al menos una vez al año. Podrá reunirse en sesión extraordinaria cuando las circunstancias así lo requieran, a convocatoria de la Junta Directiva o a petición de un mínimo del 10% de los socios.</p>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 11. La Junta Directiva</h3>
+      <p>La Junta Directiva dirige y administra la asociación. Estará compuesta por un Presidente, un Secretario y un Tesorero. Sus miembros serán elegidos por la Asamblea General para un mandato de cuatro años, pudiendo ser reelegidos.</p>
+    </div>
+
+    <p class="capitulo">Capítulo IV — Régimen económico</p>
+
+    <div class="articulo">
+      <h3>Artículo 12. Patrimonio y recursos</h3>
+      <p>La asociación carece de patrimonio fundacional. Sus recursos económicos provendrán de las cuotas de los socios, de donaciones y legados, de subvenciones públicas o privadas, y de los ingresos obtenidos por las actividades que realice.</p>
+    </div>
+
+    <div class="articulo">
+      <h3>Artículo 13. Ejercicio económico</h3>
+      <p>El ejercicio económico coincidirá con el año natural, comenzando el 1 de enero y terminando el 31 de diciembre de cada año.</p>
+    </div>
+
+    <p class="capitulo">Capítulo V — Disolución</p>
+
+    <div class="articulo">
+      <h3>Artículo 14. Disolución</h3>
+      <p>La asociación podrá disolverse por acuerdo de la Asamblea General Extraordinaria, convocada expresamente para este fin y con el voto favorable de al menos dos tercios de los socios presentes. En caso de disolución, el patrimonio resultante se destinará a entidades sin ánimo de lucro con fines similares.</p>
+    </div>
+
+  </main>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno.</p>
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;margin-top:.25rem;">Alojado en <a href="https://serveralia.net" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">serveralia.net</a> — Gracias Drazor ❤</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

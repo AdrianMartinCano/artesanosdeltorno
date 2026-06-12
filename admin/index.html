@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin — Artesanos del Torno</title>
+  <link rel="icon" sizes="any" href="favicon.ico">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">🪵</div>
+      <h1>Artesanos del Torno</h1>
+      <p>Panel de administración</p>
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" id="btn-login">Entrar</button>
+        <div id="login-error" class="error hidden"></div>
+        <p style="text-align:center;margin-top:.75rem;font-size:.85rem">
+          <a href="#" id="link-forgot" style="color:var(--muted,#888);text-decoration:underline">¿Olvidaste tu contraseña?</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Forgot password screen -->
+  <div id="forgot-screen" class="hidden">
+    <div class="login-card">
+      <div class="login-logo">🔑</div>
+      <h1>Recuperar contraseña</h1>
+      <p>Introduce tu email y te enviaremos un enlace.</p>
+      <form id="forgot-form" novalidate>
+        <div class="field">
+          <label for="forgot-email">Email</label>
+          <input type="email" id="forgot-email" autocomplete="email" required>
+        </div>
+        <button type="submit" id="btn-forgot">Enviar enlace</button>
+        <div id="forgot-status" class="error hidden"></div>
+        <p style="text-align:center;margin-top:.75rem;font-size:.85rem">
+          <a href="#" id="link-back-login" style="color:var(--muted,#888);text-decoration:underline">← Volver al login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reset password screen -->
+  <div id="reset-screen" class="hidden">
+    <div class="login-card">
+      <div class="login-logo">🔒</div>
+      <h1>Nueva contraseña</h1>
+      <p>Introduce tu nueva contraseña.</p>
+      <form id="reset-form" novalidate>
+        <div class="field">
+          <label for="reset-password">Nueva contraseña</label>
+          <input type="password" id="reset-password" autocomplete="new-password" required>
+        </div>
+        <input type="hidden" id="reset-token">
+        <button type="submit" id="btn-reset">Guardar contraseña</button>
+        <div id="reset-status" class="error hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+
+    <header>
+      <div class="header-brand">🪵 Panel Admin</div>
+      <div class="header-artesano" id="header-slug"></div>
+      <button id="btn-logout">Cerrar sesión</button>
+    </header>
+
+    <main>
+
+      <!-- Bug report -->
+      <div class="bug-report-banner">
+        <span class="bug-report-icon">🐛</span>
+        <span class="bug-report-text">
+          ¿Algo no funciona? Manda un email a
+          <a href="mailto:adrianmc@codeadrianmc.dev?subject=BUG%20AdT&body=Descripci%C3%B3n%20del%20problema%3A%0A%0A%C2%BFD%C3%B3nde%20ocurri%C3%B3%3F%0A%0APasos%20para%20reproducirlo%3A%0A%0ACapturas%20de%20pantalla%3A%20(adjunta%20en%20el%20email)">adrianmc@codeadrianmc.dev</a>
+          con el asunto <strong>BUG AdT</strong>, explicando qué pasó, dónde y cómo reproducirlo. Adjunta capturas si puedes.
+        </span>
+      </div>
+
+      <!-- Anuncio -->
+      <section class="card" id="section-anuncio">
+        <h2>Mensaje de anuncio</h2>
+        <p class="anuncio-desc">Se muestra en la barra superior de la web. Si lo dejas vacío, se mostrará automáticamente el próximo evento. Si no hay eventos próximos, la barra desaparece.</p>
+        <textarea id="anuncio-texto" rows="2" placeholder="Ej: XIV Encuentro Nacional de Torneros — Madrid, Octubre 2026"></textarea>
+        <div class="form-footer">
+          <button id="btn-guardar-anuncio">Guardar anuncio</button>
+          <button id="btn-borrar-anuncio" class="btn-ghost-small">Borrar (usar automático)</button>
+          <div id="anuncio-status"></div>
+        </div>
+      </section>
+
+      <!-- Perfil -->
+      <section class="card">
+        <h2>Mi perfil</h2>
+        <form id="perfil-form" novalidate>
+
+          <div class="perfil-foto-row">
+            <div class="perfil-foto-wrap">
+              <img id="perfil-foto-preview" src="" alt="Foto de perfil" class="hidden">
+              <div id="perfil-foto-placeholder" class="foto-placeholder">🪵</div>
+            </div>
+            <div class="perfil-foto-actions">
+              <label for="foto-input" class="btn-file">Cambiar foto</label>
+              <input type="file" id="foto-input" accept="image/*">
+              <span id="foto-selected" class="hidden"></span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="perfil-nombre">Nombre</label>
+              <input type="text" id="perfil-nombre">
+            </div>
+            <div class="field">
+              <label for="p-especialidad">Especialidad</label>
+              <input type="text" id="p-especialidad">
+            </div>
+            <div class="field">
+              <label for="p-localidad">Localidad</label>
+              <input type="text" id="p-localidad">
+            </div>
+            <div class="field">
+              <label for="p-provincia">Provincia</label>
+              <input type="text" id="p-provincia">
+            </div>
+            <div class="field">
+              <label for="p-anos">Años de experiencia</label>
+              <input type="text" id="p-anos">
+            </div>
+            <div class="field">
+              <label for="p-email">Email</label>
+              <input type="email" id="p-email" placeholder="correo@ejemplo.com">
+              <small style="color:#999;font-size:.78rem;margin-top:.25rem;display:block">Usado para recuperar la contraseña</small>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:.85rem">
+            <label for="p-bio">Biografía</label>
+            <textarea id="p-bio" rows="4"></textarea>
+          </div>
+
+          <div class="rrss-section">
+            <h3>Redes sociales</h3>
+            <div class="form-grid">
+              <div class="field">
+                <label for="p-instagram">Instagram</label>
+                <div class="rrss-input"><span>instagram.com/</span><input type="text" id="p-instagram" placeholder="usuario"></div>
+              </div>
+              <div class="field">
+                <label for="p-facebook">Facebook</label>
+                <div class="rrss-input"><span>facebook.com/</span><input type="text" id="p-facebook" placeholder="usuario"></div>
+              </div>
+              <div class="field">
+                <label for="p-twitter">Twitter / X</label>
+                <div class="rrss-input"><span>x.com/</span><input type="text" id="p-twitter" placeholder="usuario"></div>
+              </div>
+              <div class="field">
+                <label for="p-tiktok">TikTok</label>
+                <div class="rrss-input"><span>tiktok.com/@</span><input type="text" id="p-tiktok" placeholder="usuario"></div>
+              </div>
+              <div class="field">
+                <label for="p-web">Página web</label>
+                <div class="rrss-input"><span>https://</span><input type="text" id="p-web" placeholder="miweb.com"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" id="btn-guardar-perfil">Guardar cambios</button>
+            <div id="perfil-status"></div>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- Subir archivo -->
+      <section class="card" id="section-upload">
+        <h2>Subir archivo</h2>
+
+        <div id="drop-zone">
+          <div class="drop-icon">📁</div>
+          <p>Arrastra una imagen o vídeo aquí</p>
+          <p class="drop-sub">o</p>
+          <label for="file-input" class="btn-file">Seleccionar archivo</label>
+          <input type="file" id="file-input" accept="image/*,video/*">
+        </div>
+
+        <div id="selected-file" class="hidden">
+          <span id="selected-name"></span>
+          <button id="btn-clear-file">✕</button>
+        </div>
+
+        <div class="upload-footer">
+          <button id="btn-upload" disabled>Subir archivo</button>
+        </div>
+
+        <div id="upload-status"></div>
+      </section>
+
+      <!-- Galería -->
+      <section class="card">
+        <div class="gallery-header">
+          <h2>Archivos subidos</h2>
+          <button id="btn-refresh" title="Recargar">↻</button>
+        </div>
+        <div id="media-grid"></div>
+      </section>
+
+      <!-- Eventos: nuevo -->
+      <section class="card" id="section-evento-form">
+        <h2>Añadir evento</h2>
+        <form id="evento-form" novalidate>
+
+          <div class="field address-field">
+            <label for="ev-direccion">Dirección *</label>
+            <div class="address-search-wrap">
+              <input type="text" id="ev-direccion" placeholder="Calle, número, ciudad..." autocomplete="off">
+              <ul id="address-suggestions" class="address-suggestions hidden"></ul>
+            </div>
+            <div class="coords-preview hidden" id="coords-preview">
+              <span id="coords-text"></span>
+              <button type="button" id="btn-clear-coords">✕ Cambiar</button>
+            </div>
+          </div>
+
+          <input type="hidden" id="ev-latitud">
+          <input type="hidden" id="ev-longitud">
+
+          <div class="field">
+            <label for="ev-titulo">Nombre del evento *</label>
+            <input type="text" id="ev-titulo" placeholder="Ej: Feria de artesanía de Zaragoza" required>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="ev-tipo">Tipo</label>
+              <select id="ev-tipo">
+                <option value="feria">Feria</option>
+                <option value="taller">Taller</option>
+                <option value="curso">Curso</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="ev-localidad">Localidad</label>
+              <input type="text" id="ev-localidad" required>
+            </div>
+            <div class="field">
+              <label for="ev-provincia">Provincia</label>
+              <input type="text" id="ev-provincia" required>
+            </div>
+            <div class="field">
+              <label for="ev-pais">País</label>
+              <input type="text" id="ev-pais" value="España" required>
+            </div>
+            <div class="field">
+              <label for="ev-inicio">Fecha inicio</label>
+              <input type="date" id="ev-inicio" required>
+            </div>
+            <div class="field">
+              <label for="ev-fin">Fecha fin</label>
+              <input type="date" id="ev-fin" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ev-descripcion">Descripción <span style="font-weight:400;opacity:.6">(opcional)</span></label>
+            <textarea id="ev-descripcion" rows="3" placeholder="Breve descripción del evento…"></textarea>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="ev-url-imagen">URL imagen <span style="font-weight:400;opacity:.6">(opcional)</span></label>
+              <input type="url" id="ev-url-imagen" placeholder="https://…">
+            </div>
+            <div class="field">
+              <label for="ev-url-externa">Enlace externo <span style="font-weight:400;opacity:.6">(opcional)</span></label>
+              <input type="url" id="ev-url-externa" placeholder="https://…">
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" id="btn-crear-evento">Añadir evento</button>
+            <button type="button" id="btn-cancelar-evento" class="btn-ghost-small hidden">Cancelar edición</button>
+            <div id="evento-status"></div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Eventos: lista -->
+      <section class="card">
+        <div class="gallery-header">
+          <h2>Eventos</h2>
+          <button id="btn-refresh-eventos" title="Recargar">↻</button>
+        </div>
+        <div id="eventos-list"></div>
+      </section>
+
+      <!-- Gestión de artesanos (solo SUPER_ADMIN) -->
+      <section id="section-super-admin" class="card hidden">
+
+        <h2>Imágenes de la portada</h2>
+        <p style="font-size:.85rem;color:#888;margin-bottom:.75rem">Las 3 imágenes que aparecen en la portada de la web junto al texto principal.</p>
+        <div id="hero-admin-grid" class="hero-admin-grid"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <h2>Imagen «La Asociación»</h2>
+        <div class="perfil-foto-row" style="margin-bottom:1rem">
+          <div class="perfil-foto-wrap">
+            <img id="asociacion-preview" src="" alt="" class="hidden">
+            <div id="asociacion-placeholder" class="foto-placeholder">🪵</div>
+          </div>
+          <div class="perfil-foto-actions">
+            <label for="asociacion-input" class="btn-file">Cambiar imagen</label>
+            <input type="file" id="asociacion-input" accept="image/*">
+            <button id="btn-borrar-asociacion" class="btn-ghost-small hidden" style="margin-top:.4rem">Borrar imagen</button>
+            <div id="asociacion-status" style="margin-top:.4rem;font-size:.85rem"></div>
+          </div>
+        </div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <h2>Galería (8 fotos)</h2>
+        <div id="galeria-admin-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1rem"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <div class="gallery-header">
+          <h2>Artesanos registrados</h2>
+          <button id="btn-refresh-artesanos" title="Recargar">↻</button>
+        </div>
+        <div id="artesanos-list"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <h2>Registrar artesano</h2>
+        <form id="registro-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="r-nombre">Nombre *</label>
+              <input type="text" id="r-nombre" required>
+            </div>
+            <div class="field">
+              <label for="r-slug">Slug (URL) *</label>
+              <input type="text" id="r-slug" placeholder="ej: juan-garcia">
+            </div>
+            <div class="field">
+              <label for="r-usuario">Usuario *</label>
+              <input type="text" id="r-usuario">
+            </div>
+            <div class="field">
+              <label for="r-password">Contraseña *</label>
+              <input type="password" id="r-password">
+            </div>
+            <div class="field">
+              <label for="r-email">Email (para recuperar contraseña)</label>
+              <input type="email" id="r-email" placeholder="correo@ejemplo.com">
+            </div>
+          </div>
+          <div class="form-footer">
+            <button type="submit" id="btn-registrar">Registrar artesano</button>
+            <div id="registro-status"></div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Newsletter (solo SUPER_ADMIN) -->
+      <section id="section-newsletter" class="card hidden">
+
+        <h2>Newsletter</h2>
+
+        <div class="gallery-header" style="margin-top:1rem">
+          <h3 style="font-size:1rem;margin:0">Suscriptores</h3>
+          <button id="btn-refresh-newsletter" title="Recargar">↻</button>
+        </div>
+        <div id="newsletter-list" style="margin-bottom:1.5rem"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <h3 style="font-size:1rem;margin-bottom:1rem">Enviar newsletter</h3>
+        <form id="newsletter-enviar-form" novalidate>
+          <div class="field">
+            <label for="nl-asunto">Asunto *</label>
+            <input type="text" id="nl-asunto" placeholder="Ej: Próximos eventos — Junio 2026" required>
+          </div>
+          <div class="field" style="margin-top:.75rem">
+            <label for="nl-mensaje">Mensaje *</label>
+            <textarea id="nl-mensaje" rows="8" placeholder="Escribe el contenido del email…"></textarea>
+          </div>
+          <div class="form-footer">
+            <button type="submit" id="btn-enviar-newsletter">Enviar a todos los suscriptores</button>
+            <div id="newsletter-status"></div>
+          </div>
+        </form>
+
+      </section>
+
+      <!-- Tienda (solo SUPER_ADMIN) -->
+      <section id="section-tienda" class="card hidden">
+
+        <h2>🛒 Tienda — Girando Madera</h2>
+
+        <hr style="margin:1rem 0 1.5rem;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <!-- Pedidos -->
+        <div class="gallery-header">
+          <h2>Pedidos</h2>
+          <button id="btn-refresh-pedidos" title="Recargar">↻</button>
+        </div>
+        <div id="pedidos-list" style="margin-bottom:2rem"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <!-- Productos -->
+        <div class="gallery-header">
+          <h2>Productos</h2>
+          <button id="btn-refresh-productos" title="Recargar">↻</button>
+        </div>
+        <div id="productos-admin-list" style="margin-bottom:1.5rem"></div>
+
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border,#e5e7eb)">
+
+        <!-- Crear producto -->
+        <h2>Añadir producto</h2>
+        <form id="producto-form" novalidate style="margin-top:1rem">
+          <div class="form-grid">
+            <div class="field">
+              <label>Nombre *</label>
+              <input type="text" id="p-nombre" required>
+            </div>
+            <div class="field">
+              <label>Precio (€) *</label>
+              <input type="number" id="p-precio" min="0.01" step="0.01" required>
+            </div>
+            <div class="field">
+              <label>Stock *</label>
+              <input type="number" id="p-stock" min="0" value="1" required>
+            </div>
+          </div>
+          <div class="field" style="margin-top:.75rem">
+            <label>Descripción</label>
+            <textarea id="p-descripcion" rows="3"></textarea>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:center;margin-top:.75rem">
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.9rem;cursor:pointer">
+              <input type="checkbox" id="p-destacado"> Producto destacado
+            </label>
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.9rem;cursor:pointer">
+              <input type="checkbox" id="p-activo" checked> Visible en tienda
+            </label>
+          </div>
+          <div class="form-footer">
+            <button type="submit" id="btn-crear-producto">Crear producto</button>
+            <div id="producto-status"></div>
+          </div>
+        </form>
+
+        <!-- Modal de fotos de producto -->
+        <div id="fotos-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;overflow-y:auto;padding:2rem">
+          <div style="background:white;border-radius:12px;max-width:600px;margin:0 auto;padding:2rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+              <h3 id="fotos-modal-title">Fotos del producto</h3>
+              <button onclick="cerrarFotosModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666">✕</button>
+            </div>
+            <div id="fotos-modal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.75rem;margin-bottom:1.25rem"></div>
+            <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+              <label for="foto-producto-input" class="btn-file">Añadir foto/vídeo</label>
+              <input type="file" id="foto-producto-input" accept="image/*,video/*" onchange="subirFotoProducto()">
+              <div id="foto-upload-status" style="font-size:.85rem"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de edición de producto -->
+        <div id="edit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;overflow-y:auto;padding:2rem">
+          <div style="background:white;border-radius:12px;max-width:500px;margin:0 auto;padding:2rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+              <h3>Editar producto</h3>
+              <button onclick="cerrarEditModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666">✕</button>
+            </div>
+            <div class="form-grid">
+              <div class="field">
+                <label>Nombre</label>
+                <input type="text" id="edit-nombre">
+              </div>
+              <div class="field">
+                <label>Precio (€)</label>
+                <input type="number" id="edit-precio" min="0.01" step="0.01">
+              </div>
+              <div class="field">
+                <label>Stock</label>
+                <input type="number" id="edit-stock" min="0">
+              </div>
+            </div>
+            <div class="field" style="margin-top:.75rem">
+              <label>Descripción</label>
+              <textarea id="edit-descripcion" rows="3"></textarea>
+            </div>
+            <div style="display:flex;gap:.75rem;align-items:center;margin-top:.75rem">
+              <label style="display:flex;align-items:center;gap:.4rem;font-size:.9rem;cursor:pointer">
+                <input type="checkbox" id="edit-destacado"> Destacado
+              </label>
+              <label style="display:flex;align-items:center;gap:.4rem;font-size:.9rem;cursor:pointer">
+                <input type="checkbox" id="edit-activo"> Visible
+              </label>
+            </div>
+            <input type="hidden" id="edit-id">
+            <div class="form-footer" style="margin-top:1.25rem">
+              <button id="btn-guardar-edicion" onclick="guardarEdicion()">Guardar cambios</button>
+              <div id="edit-status"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

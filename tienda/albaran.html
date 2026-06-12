@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Albarán — Girando Madera</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; color: #2d1f14; font-size: 13px; padding: 2rem; }
+
+    .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 3px solid #2d1f14; }
+    .brand h1 { font-family: Georgia, serif; font-size: 1.6rem; color: #2d1f14; }
+    .brand p  { font-size: .8rem; color: #7a6652; margin-top: .2rem; }
+    .doc-info { text-align: right; }
+    .doc-info .num { font-size: 1.2rem; font-weight: 700; color: #2d1f14; }
+    .doc-info .fecha { font-size: .85rem; color: #7a6652; margin-top: .2rem; }
+    .doc-info .estado { display: inline-block; margin-top: .4rem; padding: .2rem .7rem; border-radius: 12px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: #f4ede6; color: #7b5b3a; }
+
+    .seccion { margin-bottom: 1.75rem; }
+    .seccion h2 { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #7a6652; margin-bottom: .6rem; border-bottom: 1px solid #e0d5c4; padding-bottom: .3rem; }
+
+    .datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
+
+    .dato-bloque p { line-height: 1.7; }
+    .dato-bloque strong { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: #7a6652; margin-bottom: .15rem; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #2d1f14; color: white; }
+    thead th { padding: .6rem .75rem; text-align: left; font-size: .8rem; font-weight: 600; }
+    tbody tr { border-bottom: 1px solid #f0e8e0; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: .6rem .75rem; font-size: .88rem; }
+    tbody td:last-child { text-align: right; font-weight: 600; }
+
+    tfoot tr { border-top: 2px solid #2d1f14; }
+    tfoot td { padding: .5rem .75rem; font-size: .88rem; }
+    tfoot tr.total td { font-weight: 700; font-size: 1rem; }
+
+    .notas { background: #f4ede6; border-radius: 8px; padding: .85rem 1rem; font-size: .85rem; color: #4a3221; margin-top: 1.5rem; }
+    .notas strong { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: #7a6652; margin-bottom: .3rem; }
+
+    .footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e0d5c4; text-align: center; font-size: .75rem; color: #aaa; }
+
+    .btn-print { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #2d1f14; color: white; border: none; padding: .75rem 1.5rem; border-radius: 8px; font-size: .9rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+    .btn-print:hover { background: #3d2c1e; }
+
+    .loading { text-align: center; padding: 4rem 2rem; color: #aaa; font-size: 1rem; }
+
+    @media print {
+      .btn-print { display: none; }
+      body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="content"><p class="loading">Cargando albarán…</p></div>
+<button class="btn-print" onclick="window.print()">🖨 Imprimir</button>
+
+<script>
+const API   = 'https://girandomadera.artesanosdeltorno.es/api';
+const params = new URLSearchParams(location.search);
+const token  = params.get('token') || localStorage.getItem('aetm_token');
+const id     = params.get('pedido');
+
+if (!token || !id) {
+  document.getElementById('content').innerHTML = '<p class="loading">Acceso denegado. Abre este albarán desde el panel de administración.</p>';
+} else {
+  fetch(`${API}/admin/pedidos/${id}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  .then(r => r.json())
+  .then(p => renderAlbaran(p))
+  .catch(() => {
+    document.getElementById('content').innerHTML = '<p class="loading">Error al cargar el pedido.</p>';
+  });
+}
+
+function eur(n) { return Number(n).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }); }
+
+function renderAlbaran(p) {
+  const fecha  = new Date(p.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  const zona   = p.zona === 'baleares' ? 'Baleares' : 'Península';
+  const envio  = p.gastosEnvio === 0 ? 'Gratis' : eur(p.gastosEnvio);
+  const estado = p.estado.charAt(0).toUpperCase() + p.estado.slice(1);
+
+  const filas = p.items.map(i => `
+    <tr>
+      <td>${i.nombre}</td>
+      <td style="text-align:center">${i.cantidad}</td>
+      <td style="text-align:right">${eur(i.precioUnitario)}</td>
+      <td>${eur(i.precioUnitario * i.cantidad)}</td>
+    </tr>`).join('');
+
+  document.getElementById('content').innerHTML = `
+    <div class="header">
+      <div class="brand">
+        <h1>Girando Madera</h1>
+        <p>por Manuel Mateo · Artesanos del Torno<br>tienda@artesanosdeltorno.es</p>
+      </div>
+      <div class="doc-info">
+        <div class="num">Albarán #${p.id}</div>
+        <div class="fecha">${fecha}</div>
+        <div class="estado">${estado}</div>
+      </div>
+    </div>
+
+    <div class="datos-grid">
+      <div class="seccion">
+        <h2>Datos del cliente</h2>
+        <div class="dato-bloque">
+          <p><strong>Nombre</strong>${p.nombre}</p>
+          <p><strong>Email</strong>${p.email}</p>
+          ${p.telefono ? `<p><strong>Teléfono</strong>${p.telefono}</p>` : ''}
+        </div>
+      </div>
+      <div class="seccion">
+        <h2>Dirección de envío</h2>
+        <div class="dato-bloque">
+          <p>
+            ${p.nombre}<br>
+            ${p.direccion}<br>
+            ${p.codigoPostal} ${p.ciudad}${p.provincia ? `, ${p.provincia}` : ''}<br>
+            <strong style="display:inline;font-size:inherit;text-transform:none;letter-spacing:0;color:inherit">Zona:</strong> ${zona}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2>Productos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th style="text-align:center">Cantidad</th>
+            <th style="text-align:right">Precio unit.</th>
+            <th style="text-align:right">Total</th>
+          </tr>
+        </thead>
+        <tbody>${filas}</tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Subtotal</td>
+            <td style="text-align:right">${eur(p.subtotal)}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Gastos de envío (${zona})</td>
+            <td style="text-align:right">${envio}</td>
+          </tr>
+          <tr class="total">
+            <td colspan="3">TOTAL</td>
+            <td style="text-align:right">${eur(p.total)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    ${p.notas ? `<div class="notas"><strong>Notas del pedido</strong>${p.notas}</div>` : ''}
+
+    <div class="footer">
+      girandomadera.artesanosdeltorno.es · tienda@artesanosdeltorno.es
+    </div>`;
+
+  document.title = `Albarán #${p.id} — ${p.nombre}`;
+}
+</script>
+</body>
+</html>

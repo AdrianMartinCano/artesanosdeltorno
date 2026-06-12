@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería de Obra — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="Galería completa de fotos y vídeos de los artesanos del torno asociados. Piezas torneadas, procesos y talleres de artesanía en madera.">
+  <meta name="keywords" content="galería torneado artesanal, fotos artesanos madera, piezas torneadas, artesanía madera España">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://artesanosdeltorno.es/galeria.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://artesanosdeltorno.es/galeria.html">
+  <meta property="og:title"       content="Galería de Obra — Artesanos del Torno">
+  <meta property="og:description" content="Fotos y vídeos de los artesanos asociados. Piezas torneadas, procesos y talleres de artesanía en madera.">
+  <meta property="og:locale"      content="es_ES">
+  <meta property="og:site_name"   content="Artesanos del Torno">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Galería de Obra — Artesanos del Torno">
+  <meta name="twitter:description" content="Fotos y vídeos de artesanos del torno. Piezas, procesos y talleres.">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    #galeria-page {
+      flex: 1;
+    }
+
+    .galeria-hero {
+      background: #2d1f14;
+      padding: 5rem 2rem 3.5rem;
+      text-align: center;
+      color: #faf7f2;
+    }
+    .galeria-hero .section-label { color: #c8a97e; }
+    .galeria-hero .section-title { color: #faf7f2; margin-top: .5rem; font-size: clamp(1.8rem,4vw,2.8rem); }
+
+    .galeria-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .artesano-bloque {
+      margin-bottom: 4rem;
+    }
+
+    .artesano-bloque-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0e8e0;
+    }
+
+    .artesano-bloque-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e8ddd3;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      border: 2px solid #d4c4b4;
+      overflow: hidden;
+    }
+
+    .artesano-bloque-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .artesano-bloque-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #2d1f14;
+      margin-bottom: .15rem;
+    }
+
+    .artesano-bloque-info p {
+      font-size: .85rem;
+      color: #8b5e3c;
+    }
+
+    .artesano-bloque-link {
+      margin-left: auto;
+      font-size: .82rem;
+      color: #8b5e3c;
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .artesano-bloque-link:hover { text-decoration: underline; }
+
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .85rem;
+    }
+
+    .galeria-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #e8ddd3;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+
+    .galeria-item img,
+    .galeria-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s ease;
+    }
+
+    .galeria-item:hover img,
+    .galeria-item:hover video { transform: scale(1.04); }
+
+    .galeria-item__badge {
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      background: rgba(0,0,0,.55);
+      color: white;
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: .2rem .45rem;
+      border-radius: 4px;
+    }
+
+    .galeria-item__play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: rgba(255,255,255,.85);
+      pointer-events: none;
+    }
+
+    .galeria-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .galeria-lightbox.open { opacity: 1; pointer-events: all; }
+
+    .galeria-lightbox__inner {
+      position: relative;
+      max-width: min(90vw, 1100px);
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .galeria-lightbox__inner img,
+    .galeria-lightbox__inner video {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .galeria-lightbox__close {
+      position: fixed;
+      top: 1rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: .75;
+    }
+    .galeria-lightbox__close:hover { opacity: 1; }
+
+    .galeria-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #aaa;
+      font-size: 1rem;
+    }
+
+    .galeria-loading {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .85rem;
+    }
+    .galeria-skeleton {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      background: linear-gradient(90deg,#f0e8e0 25%,#e8ddd3 50%,#f0e8e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <div class="galeria-hero">
+    <span class="section-label">Galería de Obra</span>
+    <h1 class="section-title">Fotos y vídeos de<br>nuestros <em>artesanos</em></h1>
+  </div>
+
+  <main class="galeria-page" id="galeria-page">
+    <!-- Skeletons mientras carga -->
+    <div class="galeria-loading" id="galeria-loading">
+      <div class="galeria-skeleton"></div>
+      <div class="galeria-skeleton"></div>
+      <div class="galeria-skeleton"></div>
+      <div class="galeria-skeleton"></div>
+      <div class="galeria-skeleton"></div>
+      <div class="galeria-skeleton"></div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="galeria-lightbox" id="galeria-lightbox" role="dialog" aria-modal="true">
+    <button class="galeria-lightbox__close" id="galeria-lightbox-close" aria-label="Cerrar">✕</button>
+    <div class="galeria-lightbox__inner" id="galeria-lightbox-inner"></div>
+  </div>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno.</p>
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;margin-top:.25rem;">Alojado en <a href="https://serveralia.net" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">serveralia.net</a> — Gracias Drazor ❤</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/galeria.js"></script>
+</body>
+</html>

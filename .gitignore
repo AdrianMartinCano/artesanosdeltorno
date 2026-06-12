@@ -1,0 +1,33 @@
+# Archivos de configuración sensible
+.env
+.env.local
+.env.*.local
+AGENTS.md
+
+# Archivos generados (pero mantener estructura de directorios)
+backend-php/config.php
+backend-php/uploads/*
+!backend-php/uploads/.gitkeep
+admin/api/uploads/*
+!admin/api/uploads/.gitkeep
+tienda/api/uploads/*
+!tienda/api/uploads/.gitkeep
+
+# Fotos de personas (datos personales, no subir)
+img/junta/*.jpg
+img/junta/*.jpeg
+img/junta/*.png
+tarjetas/**
+
+# IDE
+.claude/settings.local.json
+.idea/
+*.swp
+*.swo
+
+# Compilados
+*.class
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

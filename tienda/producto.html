@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Producto — Girando Madera</title>
+  <link rel="icon" sizes="any" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="description" content="Pieza de torneado artesanal única hecha a mano por Manuel Mateo.">
+  <meta property="og:type"         content="product">
+  <meta property="og:site_name"    content="Girando Madera">
+  <meta property="og:locale"       content="es_ES">
+  <meta property="og:title"        content="Girando Madera — Torneado Artesanal">
+  <meta property="og:description"  content="Pieza de torneado artesanal única hecha a mano por Manuel Mateo.">
+  <meta property="og:image"        content="https://girandomadera.artesanosdeltorno.es/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles/tienda.css"/>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="header__logo" href="index.html">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+          <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+        </svg>
+      </div>
+      <div class="logo-text">Girando Madera<span>por Manuel Mateo · AdT</span></div>
+    </a>
+    <nav class="header__nav">
+      <a href="index.html">Tienda</a>
+      <a href="https://artesanosdeltorno.es">Asociación</a>
+    </nav>
+    <a href="carrito.html" class="cart-btn" aria-label="Ver carrito">
+      🛒 Carrito
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="container">
+  <div id="producto-wrap">
+    <div class="producto-page">
+      <div>
+        <div class="producto-galeria__main skeleton" style="aspect-ratio:1"></div>
+        <div class="producto-galeria__thumbs" style="margin-top:.75rem">
+          <div class="skeleton thumb"></div>
+          <div class="skeleton thumb"></div>
+          <div class="skeleton thumb"></div>
+        </div>
+      </div>
+      <div class="producto-info">
+        <div class="skeleton" style="height:16px;width:120px;border-radius:4px"></div>
+        <div class="skeleton" style="height:40px;border-radius:6px;margin-top:.5rem"></div>
+        <div class="skeleton" style="height:30px;width:100px;border-radius:4px"></div>
+        <div class="skeleton" style="height:80px;border-radius:6px"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog">
+  <button class="lightbox__close" id="lightbox-close">✕</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<footer class="footer-tienda">
+  <p>© 2026 Manuel Mateo · <a href="https://artesanosdeltorno.es">Artesanos del Torno</a> &nbsp;|&nbsp; <a href="aviso-legal.html">Aviso legal</a> &nbsp;|&nbsp; <a href="privacidad.html">Privacidad</a> &nbsp;|&nbsp; <a href="devoluciones.html">Devoluciones</a> &nbsp;|&nbsp; <a href="cookies.html">Cookies</a></p>
+  <p style="font-size:.75rem;margin-top:.4rem;opacity:.6">Hosteado en <a href="https://serveralia.net" target="_blank" rel="noopener">Serveralia</a> · Gracias Drazor ♡</p>
+</footer>
+
+<script src="js/tienda-shared.js"></script>
+<script src="js/producto.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Junta Directiva — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="Junta directiva de Artesanos del Torno — las personas que hacen posible la asociación.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://artesanosdeltorno.es/junta.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/inner.css" />
+  <style>
+    .inner-content > p { font-size:1.05rem; text-align:center; }
+    .junta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 900px) {
+      .junta-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .junta-grid { grid-template-columns: 1fr; }
+      .junta-card { padding: 1.5rem; }
+    }
+    .junta-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(74,50,33,.08);
+      text-align: center;
+      border-top: 4px solid #c8a97e;
+    }
+    .junta-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #f4ede6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1.25rem;
+      border: 3px solid #e0cdb8;
+      overflow: hidden;
+    }
+    .junta-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .junta-avatar-emoji { display: none; }
+    .junta-avatar img[data-error] { display: none; }
+    .junta-avatar img[data-error] ~ .junta-avatar-emoji { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+    .junta-cargo {
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #8b5e3c;
+      margin-bottom: .5rem;
+    }
+    .junta-nombre {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #2d1f14;
+      margin-bottom: .85rem;
+    }
+    .junta-bio {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: #6b4c35;
+    }
+    .junta-nota {
+      background: #f4ede6;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 3rem;
+      font-size: .9rem;
+      color: #6b4c35;
+      line-height: 1.7;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <div class="inner-hero">
+    <span class="section-label">Las personas detrás de AdT</span>
+    <h1 class="section-title">Junta <em>Directiva</em></h1>
+  </div>
+
+  <main class="inner-content inner-content--wide">
+
+    <p>La junta directiva de Artesanos del Torno está formada por artesanos comprometidos con el crecimiento y la sostenibilidad de la asociación. Su trabajo es voluntario y su pasión, el motor de todo.</p>
+
+    <div class="junta-grid">
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/manuel-mateo.jpg" alt="Manuel Mateo" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">🪵</span>
+        </div>
+        <div class="junta-cargo">Presidente</div>
+        <div class="junta-nombre">Manuel Mateo</div>
+        <p class="junta-bio">Artesano del torno con más de cinco años de experiencia, especializado en madera de arce. Manuel fundó Artesanos del Torno en 2024 con la convicción de que el torneado artesanal merece un lugar de honor en el patrimonio cultural de España. Es el alma y el impulso de la asociación desde el primer día.</p>
+      </div>
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/julian-perez.jpg" alt="Julián Pérez" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">📊</span>
+        </div>
+        <div class="junta-cargo">Tesorero</div>
+        <div class="junta-nombre">Julián Pérez</div>
+        <p class="junta-bio">Responsable de la gestión económica y financiera de la asociación. Julián garantiza que los recursos de AdT se administren con transparencia y eficiencia, permitiendo que cada euro se destine a lo que más importa: los artesanos y sus proyectos.</p>
+      </div>
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/jesus-lopez.jpg" alt="Jesús López" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">🤝</span>
+        </div>
+        <div class="junta-cargo">Vicepresidente</div>
+        <div class="junta-nombre">Jesús López</div>
+        <p class="junta-bio">Apoya la dirección de la asociación y coordina las iniciativas entre los distintos grupos de trabajo. Jesús es el nexo entre la junta y los socios, asegurando que las decisiones se tomen con pleno conocimiento de las necesidades de los artesanos.</p>
+      </div>
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/jose-luis-corbacho.jpg" alt="José Luis Corbacho" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">🪵</span>
+        </div>
+        <div class="junta-cargo">Vocal</div>
+        <div class="junta-nombre">José Luis Corbacho</div>
+        <p class="junta-bio">Miembro vocal de la junta directiva. Participa activamente en las decisiones de la asociación y colabora en la organización de actividades y eventos para los socios.</p>
+      </div>
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/eduardo-munoz.jpg" alt="Eduardo Muñoz" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">🪵</span>
+        </div>
+        <div class="junta-cargo">Vocal</div>
+        <div class="junta-nombre">Eduardo Muñoz</div>
+        <p class="junta-bio">Miembro vocal de la junta directiva. Contribuye al buen funcionamiento de la asociación y representa los intereses de los socios en los órganos de gobierno.</p>
+      </div>
+
+      <div class="junta-card">
+        <div class="junta-avatar">
+          <img src="img/junta/nicolae-modovan.jpg" alt="Nicolae Modovan" onerror="this.setAttribute('data-error','1')">
+          <span class="junta-avatar-emoji">🪵</span>
+        </div>
+        <div class="junta-cargo">Vocal</div>
+        <div class="junta-nombre">Nicolae Modovan</div>
+        <p class="junta-bio">Miembro vocal de la junta directiva. Aporta su experiencia artesanal al debate interno y apoya las iniciativas de formación y difusión del torneado en madera.</p>
+      </div>
+    </div>
+
+    <div class="junta-nota">
+      La junta directiva se renueva cada cuatro años mediante asamblea general de socios, de acuerdo con los <a href="estatutos.html" style="color:#8b5e3c;font-weight:700;">estatutos de la asociación</a>.
+    </div>
+
+  </main>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno.</p>
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;margin-top:.25rem;">Alojado en <a href="https://serveralia.net" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">serveralia.net</a> — Gracias Drazor ❤</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

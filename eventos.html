@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos — Artesanos del Torno</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="Ferias, talleres y cursos de Artesanos del Torno. Próximos eventos de torneado artesanal en toda España.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://artesanosdeltorno.es/eventos.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/inner.css" />
+  <style>
+    /* ── Filtros ───────────────────────────────────── */
+    .ev-filters {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .ev-filter-btn {
+      padding: .45rem 1.1rem;
+      border-radius: 999px;
+      border: 1.5px solid #c8a97e;
+      background: transparent;
+      color: #8b5e3c;
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .ev-filter-btn.active,
+    .ev-filter-btn:hover {
+      background: #8b5e3c;
+      color: #faf7f2;
+    }
+
+    /* ── Sección heading ───────────────────────────── */
+    .ev-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: #2d1f14;
+      margin: 0 0 1.25rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid #e8ddd5;
+    }
+
+    /* ── Grid de eventos ───────────────────────────── */
+    .ev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Tarjeta de evento ─────────────────────────── */
+    .ev-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(74,50,33,.08);
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .ev-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(74,50,33,.13);
+    }
+
+    /* imagen o mapa */
+    .ev-card__media {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: #e8ddd5;
+    }
+    .ev-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ev-card__media iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* badge de tipo */
+    .ev-tipo-badge {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      background: #8b5e3c;
+      color: #faf7f2;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: .25rem .65rem;
+      border-radius: 999px;
+    }
+
+    .ev-card__body {
+      padding: 1.25rem 1.4rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .ev-card__dates {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
+    .ev-date-badge {
+      background: #f4ede6;
+      border-radius: 8px;
+      padding: .35rem .65rem;
+      text-align: center;
+      min-width: 44px;
+    }
+    .ev-date-badge__day   { font-size: 1.2rem; font-weight: 700; color: #2d1f14; line-height: 1; }
+    .ev-date-badge__month { font-size: .65rem; font-weight: 700; text-transform: uppercase; color: #8b5e3c; }
+    .ev-date-sep { color: #c8a97e; font-size: 1rem; }
+
+    .ev-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: #2d1f14;
+      margin: 0 0 .4rem;
+      line-height: 1.35;
+    }
+    .ev-card__place {
+      font-size: .83rem;
+      color: #8b5e3c;
+      margin-bottom: .6rem;
+    }
+    .ev-card__desc {
+      font-size: .88rem;
+      color: #6b4c35;
+      line-height: 1.7;
+      margin-bottom: .9rem;
+      flex: 1;
+    }
+    .ev-card__link {
+      align-self: flex-start;
+      font-size: .82rem;
+      font-weight: 700;
+      color: #8b5e3c;
+      text-decoration: none;
+      border-bottom: 1.5px solid #c8a97e;
+      padding-bottom: 1px;
+      transition: color .15s;
+    }
+    .ev-card__link:hover { color: #2d1f14; }
+
+    /* ── Mapa expandido ────────────────────────────── */
+    .ev-card__map {
+      height: 220px;
+      border-top: 1px solid #e8ddd5;
+    }
+    .ev-card__map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* ── Eventos pasados ───────────────────────────── */
+    .ev-past-list {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .ev-past-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .8rem 1rem;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e8ddd5;
+      opacity: .7;
+    }
+    .ev-past-item__dates {
+      font-size: .8rem;
+      color: #8b5e3c;
+      white-space: nowrap;
+      min-width: 110px;
+    }
+    .ev-past-item__title {
+      font-weight: 700;
+      font-size: .92rem;
+      color: #2d1f14;
+      flex: 1;
+    }
+    .ev-past-item__place {
+      font-size: .8rem;
+      color: #6b4c35;
+    }
+    .ev-past-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      background: #e8ddd5;
+      color: #8b5e3c;
+      white-space: nowrap;
+    }
+
+    /* ── Empty state ───────────────────────────────── */
+    .ev-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #8b5e3c;
+      font-size: .95rem;
+    }
+
+    @media (max-width: 600px) {
+      .ev-grid { grid-template-columns: 1fr; }
+      .ev-card__media { height: 160px; }
+      .ev-card__map { height: 180px; }
+      .ev-past-item { flex-wrap: wrap; gap: .4rem; }
+      .ev-past-item__dates { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar" id="announcement-bar" role="banner" style="display:none">
+    <span id="announcement-text"></span>
+    <a href="eventos.html" id="announcement-link" style="display:none">Ver detalles →</a>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="index.html" aria-label="AdT — Inicio">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            <path d="M7 7l1.4 1.4M15.6 15.6L17 17M17 7l-1.4 1.4M8.4 15.6L7 17"/>
+          </svg>
+        </div>
+        <div class="logo-text">AdT<span>Artesanos del Torno · España</span></div>
+      </a>
+      <nav class="nav">
+        <div class="nav__dropdown-wrap">
+          <a class="nav__link" href="index.html#sobre">La Asociación</a>
+          <div class="nav__dropdown">
+            <a href="index.html#sobre">Quiénes somos</a>
+            <a href="historia.html">Historia</a>
+            <a href="junta.html">Junta directiva</a>
+            <a href="estatutos.html">Estatutos</a>
+          </div>
+        </div>
+        <a class="nav__link" href="index.html#socios">Artesanos</a>
+        <a class="nav__link" href="index.html#galeria">Galería</a>
+        <a class="nav__link nav__link--active" href="eventos.html">Eventos</a>
+        <a class="nav__link" href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="hamburger" id="btn-hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <div class="logo-text" style="color:var(--color-dark-walnut);">AdT<span>Artesanos del Torno</span></div>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="mobile-nav__links">
+      <a class="mobile-nav__link" href="index.html#sobre">La Asociación</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="historia.html">Historia</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="junta.html">Junta directiva</a>
+      <a class="mobile-nav__link mobile-nav__link--sub" href="estatutos.html">Estatutos</a>
+      <a class="mobile-nav__link" href="index.html#socios">Artesanos</a>
+      <a class="mobile-nav__link" href="index.html#galeria">Galería</a>
+      <a class="mobile-nav__link" href="eventos.html">Eventos y Cursos</a>
+      <a class="mobile-nav__link" href="index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <div class="inner-hero">
+    <span class="section-label">Calendario</span>
+    <h1 class="section-title">Eventos, ferias<br>y <em>formación</em></h1>
+  </div>
+
+  <main class="inner-content inner-content--wide">
+
+    <!-- Filtros -->
+    <div class="ev-filters" id="ev-filters">
+      <button class="ev-filter-btn active" data-tipo="todos">Todos</button>
+      <button class="ev-filter-btn" data-tipo="feria">Ferias</button>
+      <button class="ev-filter-btn" data-tipo="taller">Talleres</button>
+      <button class="ev-filter-btn" data-tipo="curso">Cursos</button>
+    </div>
+
+    <!-- Próximos -->
+    <h2 class="ev-section-title">Próximos eventos</h2>
+    <div id="ev-proximos"><p class="ev-empty">Cargando…</p></div>
+
+    <!-- Pasados -->
+    <h2 class="ev-section-title" id="ev-pasados-title" style="display:none">Eventos pasados</h2>
+    <div id="ev-pasados"></div>
+
+  </main>
+
+  <footer style="text-align:center;padding:2rem 1rem;background:#2d1f14;">
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;">© 2026 Artesanos del Torno.</p>
+    <p style="font-size:.72rem;opacity:.45;color:#faf7f2;margin-top:.25rem;">Alojado en <a href="https://serveralia.net" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">serveralia.net</a> — Gracias Drazor ❤</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script>
+    const TIPO_LABEL = { feria: 'Feria', taller: 'Taller', curso: 'Curso' };
+
+    let todosEventos = [];
+    let filtroActivo = 'todos';
+
+    async function cargarEventos() {
+      try {
+        const res = await fetch(`${API_BASE}/eventos`);
+        if (!res.ok) throw new Error();
+        todosEventos = await res.json();
+        renderTodo();
+      } catch {
+        document.getElementById('ev-proximos').innerHTML =
+          '<p class="ev-empty">No se pudieron cargar los eventos. Inténtalo más tarde.</p>';
+      }
+    }
+
+    function renderTodo() {
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+
+      const filtrados = filtroActivo === 'todos'
+        ? todosEventos
+        : todosEventos.filter(ev => ev.tipo === filtroActivo);
+
+      const proximos = filtrados.filter(ev => new Date(ev.fechaFin) >= hoy);
+      const pasados  = filtrados.filter(ev => new Date(ev.fechaFin) < hoy).reverse();
+
+      renderProximos(proximos);
+      renderPasados(pasados);
+    }
+
+    function fmtFecha(str) {
+      const d = new Date(str);
+      return {
+        dia: d.getDate(),
+        mes: d.toLocaleString('es-ES', { month: 'short' }),
+        anio: d.getFullYear(),
+      };
+    }
+
+    function renderProximos(eventos) {
+      injectEventStructuredData(eventos);
+      const cont = document.getElementById('ev-proximos');
+      if (!eventos.length) {
+        cont.innerHTML = '<p class="ev-empty">No hay próximos eventos de este tipo.</p>';
+        if (window._adt_translate_el) window._adt_translate_el(cont);
+        return;
+      }
+      cont.innerHTML = `<div class="ev-grid">${eventos.map(renderCard).join('')}</div>`;
+      if (window._adt_translate_el) window._adt_translate_el(cont);
+    }
+
+    function renderCard(ev) {
+      const ini = fmtFecha(ev.fechaInicio);
+      const fin = fmtFecha(ev.fechaFin);
+      const mismoDia = ev.fechaInicio === ev.fechaFin;
+
+      const mediaHtml = ev.urlImagen
+        ? `<img src="${ev.urlImagen}" alt="${ev.titulo || ev.localidad}" loading="lazy">`
+        : `<iframe src="https://www.google.com/maps?q=${ev.latitud},${ev.longitud}&output=embed"
+             loading="lazy" allowfullscreen title="Mapa ${ev.localidad}"></iframe>`;
+
+      const mapaHtml = ev.urlImagen
+        ? `<div class="ev-card__map">
+             <iframe src="https://www.google.com/maps?q=${ev.latitud},${ev.longitud}&output=embed"
+               loading="lazy" allowfullscreen title="Mapa ${ev.localidad}"></iframe>
+           </div>`
+        : '';
+
+      const descHtml = ev.descripcion
+        ? `<p class="ev-card__desc">${ev.descripcion}</p>`
+        : '';
+
+      const linkHtml = ev.urlExterna
+        ? `<a class="ev-card__link" href="${ev.urlExterna}" target="_blank" rel="noopener">Más información →</a>`
+        : '';
+
+      const fechasHtml = mismoDia
+        ? `<div class="ev-date-badge">
+             <div class="ev-date-badge__day">${ini.dia}</div>
+             <div class="ev-date-badge__month">${ini.mes}</div>
+           </div>
+           <span style="font-size:.8rem;color:#8b5e3c;">${ini.anio}</span>`
+        : `<div class="ev-date-badge">
+             <div class="ev-date-badge__day">${ini.dia}</div>
+             <div class="ev-date-badge__month">${ini.mes}</div>
+           </div>
+           <span class="ev-date-sep">—</span>
+           <div class="ev-date-badge">
+             <div class="ev-date-badge__day">${fin.dia}</div>
+             <div class="ev-date-badge__month">${fin.mes}</div>
+           </div>
+           <span style="font-size:.8rem;color:#8b5e3c;">${ini.anio}</span>`;
+
+      return `
+        <article class="ev-card">
+          <div class="ev-card__media">
+            ${mediaHtml}
+            <span class="ev-tipo-badge">${TIPO_LABEL[ev.tipo] || ev.tipo}</span>
+          </div>
+          <div class="ev-card__body">
+            <div class="ev-card__dates">${fechasHtml}</div>
+            <h3 class="ev-card__title">${ev.titulo || 'Evento en ' + ev.localidad}</h3>
+            <p class="ev-card__place">📍 ${ev.localidad}, ${ev.provincia}</p>
+            ${descHtml}
+            ${linkHtml}
+          </div>
+          ${mapaHtml}
+        </article>`;
+    }
+
+    function renderPasados(eventos) {
+      const title = document.getElementById('ev-pasados-title');
+      const cont  = document.getElementById('ev-pasados');
+
+      if (!eventos.length) {
+        title.style.display = 'none';
+        cont.innerHTML = '';
+        return;
+      }
+
+      title.style.display = '';
+      const fmt = str => new Date(str).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+
+      cont.innerHTML = `<div class="ev-past-list">
+        ${eventos.map(ev => `
+          <div class="ev-past-item">
+            <span class="ev-past-item__dates">${fmt(ev.fechaInicio)} – ${fmt(ev.fechaFin)}</span>
+            <span class="ev-past-item__title">${ev.titulo || 'Evento en ' + ev.localidad}</span>
+            <span class="ev-past-item__place">${ev.localidad}, ${ev.provincia}</span>
+            <span class="ev-past-badge">${TIPO_LABEL[ev.tipo] || ev.tipo}</span>
+          </div>
+        `).join('')}
+      </div>`;
+      if (window._adt_translate_el) window._adt_translate_el(cont);
+    }
+
+    // Filtros
+    document.getElementById('ev-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.ev-filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.ev-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filtroActivo = btn.dataset.tipo;
+      renderTodo();
+    });
+
+    cargarEventos();
+  </script>
+</body>
+</html>
