@@ -1,5 +1,7 @@
 # Artesanos del Torno — Web
 
+![Artesanos del Torno Logo](./logo.svg)
+
 Sitio web oficial de la Asociación Nacional de Torneado Artesanal de España. Incluye panel de administración, gestión de eventos, tienda de e-commerce con integración Stripe y newsletter automática.
 
 **🌐 En producción en:** [artesanosdeltorno.es](https://artesanosdeltorno.es)
